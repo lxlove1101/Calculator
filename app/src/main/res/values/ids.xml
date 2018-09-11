@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="clear" type="id" />
+    <item name="add" type="id" />
+    <item name="sub" type="id" />
+    <item name="mul" type="id" />
+    <item name="div" type="id" />
+    <item name="zero" type="id" />
+    <item name="one" type="id" />
+    <item name="two" type="id" />
+    <item name="three" type="id" />
+    <item name="four" type="id" />
+    <item name="five" type="id" />
+    <item name="six" type="id" />
+    <item name="seven" type="id" />
+    <item name="eight" type="id" />
+    <item name="nine" type="id" />
+    <item name="point" type="id" />
+    <item name="right" type="id" />
+    <item name="delete" type="id" />
+    <item name="left" type="id" />
+    <item name="getResult" type="id" />
+
+
+</resources>
