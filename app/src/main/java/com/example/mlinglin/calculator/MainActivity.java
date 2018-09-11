@@ -350,18 +350,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @return
      */
     public boolean judgeRightBracket(StringBuilder s){
+        int countLeft = 0;
+        int countRight = 0;
         //如果StringBuilder为空，则不添加
         if (s == null || s.length() == 0){
             return false;
         }
         //如果前面没有出现左括号则不添加
         for (int i = 0; i < s.length(); i++){
-            if (!String.valueOf(s.charAt(i)).equals("(")){
-                return false;
-            }else{
-                return true;
+            if (String.valueOf(s.charAt(i)).equals("(")){
+                countLeft ++;
             }
         }
+        if (countLeft == 0){
+            return false;
+        }
+//        //判断匹配左右括号数量
+//        for (int i = 0; i < s.length(); i++){
+//            if (String.valueOf(s.charAt(i)).equals(")")){
+//                countRight ++;
+//            }
+//        }
+//        if (countLeft != countRight){
+//            return false;
+//        }
+        return true;
+    }
+
+    public boolean judgeEqual(StringBuilder s){
+
         return true;
     }
 
