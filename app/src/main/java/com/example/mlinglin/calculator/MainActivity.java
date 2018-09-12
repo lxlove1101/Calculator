@@ -188,17 +188,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.getResult:
                 if (stringBuilder != null && stringBuilder.length() != 0) {
-                    str.setText(String.valueOf(StringToArithmetic.stringToArithmetic(stringBuilder.toString())));
-                    stringBuilder.delete(0, stringBuilder.length());
+                    if (judgeEqual(stringBuilder)) {
+                        str.setText(String.valueOf(StringToArithmetic.stringToArithmetic(stringBuilder.toString())));
+                        stringBuilder.delete(0, stringBuilder.length());
+                    }else{
+                        str.setText("错误");
+                        stringBuilder.delete(0, stringBuilder.length());
+                    }
                 } else {
                     str.setText("");
                 }
                 break;
             case R.id.clear:
                 if (stringBuilder == null || stringBuilder.length() == 0){
+                    str.setText("");
                     break;
                 } else {
-                    stringBuilder.delete(0, stringBuilder.length());
+                    stringBuilder = stringBuilder.delete(0, stringBuilder.length());
                     str.setText(stringBuilder);
                 }
                 break;
@@ -298,6 +304,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * 判断小数点过多、StringBuilder为空、前面无数字情况
+     * @param s
      * @return
      */
     public boolean judgePoint(StringBuilder s){
@@ -311,7 +318,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            if (String.valueOf(s.charAt(i)).equals(".")){
 //                return false;
 //            }
-        if (String.valueOf(s.charAt(s.length()-1)).equals(".")){
+        if (String.valueOf(s.charAt(s.length() - 1)).equals(".")){
             return false;
         }
         //如果前面是运算符（+-*/），则为0.X
@@ -327,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * 判断运算符过多、前面无数字、StringBuilder为空情况
+     * @param s
      * @return
      */
     public boolean judgeOperator(StringBuilder s){
@@ -347,6 +355,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * 判断右括号
+     * @param s
      * @return
      */
     public boolean judgeRightBracket(StringBuilder s){
@@ -361,25 +370,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (String.valueOf(s.charAt(i)).equals("(")){
                 countLeft ++;
             }
+            if (String.valueOf(s.charAt(i)).equals(")")){
+                countRight ++;
+            }
         }
         if (countLeft == 0){
             return false;
         }
-//        //判断匹配左右括号数量
-//        for (int i = 0; i < s.length(); i++){
-//            if (String.valueOf(s.charAt(i)).equals(")")){
-//                countRight ++;
-//            }
-//        }
-//        if (countLeft != countRight){
-//            return false;
-//        }
-        return true;
+        //判断匹配左右括号数量，保证右括号不会多
+        if (countLeft == countRight){
+            return false;
+        } else {
+            return true;
+        }
     }
 
+    /**
+     * 判断等号，无数字则返回false，/号后带0则返回false
+     * @param s
+     * @return
+     */
     public boolean judgeEqual(StringBuilder s){
-
-        return true;
+        int countNum = 0;
+        for (int i = 0; i < s.length(); i++){
+            if (s.charAt(i) - '0' >= 0 && s.charAt(i) - '0' <= 9){
+                countNum ++;
+            }
+            if (String.valueOf(s.charAt(i)).equals("/") && s.charAt(i + 1) - '0' == 0){
+                return false;
+            }
+        }
+        if (countNum == 0){
+            return false;
+        } else{
+            return true;
+        }
     }
 
 }

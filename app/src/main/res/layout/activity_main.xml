@@ -7,11 +7,12 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <com.example.mlinglin.calculator.customView.ShowView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:id="@+id/showNum"
-        android:textSize="100dp"
+        android:textSize="80sp"
+        android:gravity="center"
         />
 
     <com.example.mlinglin.calculator.customView.CalculatorViewGroup
