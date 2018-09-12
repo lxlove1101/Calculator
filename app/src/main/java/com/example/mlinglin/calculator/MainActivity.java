@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.mlinglin.calculator.customView.ButtonView;
 import com.example.mlinglin.calculator.customView.CalculatorViewGroup;
+import com.example.mlinglin.calculator.utils.DensityUtil;
 import com.example.mlinglin.calculator.utils.StringToArithmetic;
 
 import java.util.ArrayList;
@@ -14,29 +15,22 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private List<ButtonView> buttonViewList;
-    private ButtonView bt1;
-    private ButtonView bt2;
-    private ButtonView bt3;
-    private ButtonView bt4;
-    private ButtonView bt5;
-    private ButtonView bt6;
-    private ButtonView bt7;
-    private ButtonView bt8;
-    private ButtonView bt9;
-    private ButtonView bt10;
-    private ButtonView bt11;
-    private ButtonView bt12;
-    private ButtonView bt13;
-    private ButtonView bt14;
-    private ButtonView bt15;
-    private ButtonView bt16;
-    private ButtonView bt17;
-    private ButtonView bt18;
-    private ButtonView bt19;
-    private ButtonView bt20;
-    private TextView str;
-    private StringBuilder stringBuilder;
+    private TextView str;       //显示屏
+    private StringBuilder stringBuilder;    //显示的字符
+
+    /**
+     * 用数组存储每个button的名字和ID，利用循环赋值
+     */
+    private String[] buttonName = {"AC","(", ")", "/",
+                                    "7", "8", "9", "*",
+                                    "4", "5", "6", "-",
+                                    "1", "2", "3", "+",
+                                    "<-", "0", ".", "="};
+    private int[] buttonId = {R.id.clear, R.id.left, R.id.right, R.id.div,
+                            R.id.seven, R.id.eight, R.id.nine, R.id.mul,
+                            R.id.four, R.id.five, R.id.six, R.id.sub,
+                            R.id.one, R.id.two, R.id.three, R.id.add,
+                            R.id.delete, R.id.zero, R.id.point, R.id.getResult};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,140 +38,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initView();
-        setOnClick();
-
     }
 
     /**
      * 初始化布局
      */
     private void initView(){
-        buttonViewList = new ArrayList<>();
-        bt1 = new ButtonView(this);
-        bt2 = new ButtonView(this);
-        bt3 = new ButtonView(this);
-        bt4 = new ButtonView(this);
-        bt5 = new ButtonView(this);
-        bt6 = new ButtonView(this);
-        bt7 = new ButtonView(this);
-        bt8 = new ButtonView(this);
-        bt9 = new ButtonView(this);
-        bt10 = new ButtonView(this);
-        bt11 = new ButtonView(this);
-        bt12 = new ButtonView(this);
-        bt13 = new ButtonView(this);
-        bt14 = new ButtonView(this);
-        bt15 = new ButtonView(this);
-        bt16 = new ButtonView(this);
-        bt17 = new ButtonView(this);
-        bt18 = new ButtonView(this);
-        bt19 = new ButtonView(this);
-        bt20 = new ButtonView(this);
-        str = findViewById(R.id.showNum);
         stringBuilder = new StringBuilder();
-        setButtonId();
-
-        bt1.setText("AC");
-        buttonViewList.add(bt1);
-        bt2.setText("(");
-        buttonViewList.add(bt2);
-        bt3.setText(")");
-        buttonViewList.add(bt3);
-        bt4.setText("/");
-        buttonViewList.add(bt4);
-        bt5.setText("7");
-        buttonViewList.add(bt5);
-        bt6.setText("8");
-        buttonViewList.add(bt6);
-        bt7.setText("9");
-        buttonViewList.add(bt7);
-        bt8.setText("*");
-        buttonViewList.add(bt8);
-        bt9.setText("4");
-        buttonViewList.add(bt9);
-        bt10.setText("5");
-        buttonViewList.add(bt10);
-        bt11.setText("6");
-        buttonViewList.add(bt11);
-        bt12.setText("-");
-        buttonViewList.add(bt12);
-        bt13.setText("1");
-        buttonViewList.add(bt13);
-        bt14.setText("2");
-        buttonViewList.add(bt14);
-        bt15.setText("3");
-        buttonViewList.add(bt15);
-        bt16.setText("+");
-        buttonViewList.add(bt16);
-        bt17.setText("<-");
-        buttonViewList.add(bt17);
-        bt18.setText("0");
-        buttonViewList.add(bt18);
-        bt19.setText(".");
-        buttonViewList.add(bt19);
-        bt20.setText("=");
-        buttonViewList.add(bt20);
-
+        str = findViewById(R.id.showNum);
         CalculatorViewGroup calculatorViewGroup = findViewById(R.id.buttonLayout);
-        //循环添加ViewGroup中的View
-        for (int i = 0; i < 20; i++) {
-            calculatorViewGroup.addView(buttonViewList.get(i), 150, 150);
+        for (int i = 0; i < buttonName.length; i++){
+            ButtonView button = new ButtonView(this);
+            button.setText(buttonName[i]);  //设置控件内文字
+            button.setId(buttonId[i]);      //设置控件Id
+            button.setOnClickListener(this);    //设置控件点击事件
+            calculatorViewGroup.addView(button, DensityUtil.dip2px(this, 80), DensityUtil.dip2px(this, 80));
+            //添加到布局当中
         }
-
     }
 
-    /**
-     * 设置点击事件
-     */
-    public void setOnClick(){
-        bt1.setOnClickListener(this);
-        bt2.setOnClickListener(this);
-        bt3.setOnClickListener(this);
-        bt4.setOnClickListener(this);
-        bt5.setOnClickListener(this);
-        bt6.setOnClickListener(this);
-        bt7.setOnClickListener(this);
-        bt8.setOnClickListener(this);
-        bt9.setOnClickListener(this);
-        bt10.setOnClickListener(this);
-        bt11.setOnClickListener(this);
-        bt12.setOnClickListener(this);
-        bt13.setOnClickListener(this);
-        bt14.setOnClickListener(this);
-        bt15.setOnClickListener(this);
-        bt16.setOnClickListener(this);
-        bt17.setOnClickListener(this);
-        bt18.setOnClickListener(this);
-        bt19.setOnClickListener(this);
-        bt20.setOnClickListener(this);
-    }
-
-    /**
-     * 设置new控件的id方便实现onClickListener接口
-     */
-    public void setButtonId(){
-        bt1.setId(R.id.clear);
-        bt2.setId(R.id.left);
-        bt3.setId(R.id.right);
-        bt4.setId(R.id.div);
-        bt5.setId(R.id.seven);
-        bt6.setId(R.id.eight);
-        bt7.setId(R.id.nine);
-        bt8.setId(R.id.mul);
-        bt9.setId(R.id.four);
-        bt10.setId(R.id.five);
-        bt11.setId(R.id.six);
-        bt12.setId(R.id.sub);
-        bt13.setId(R.id.one);
-        bt14.setId(R.id.two);
-        bt15.setId(R.id.three);
-        bt16.setId(R.id.add);
-        bt17.setId(R.id.delete);
-        bt18.setId(R.id.zero);
-        bt19.setId(R.id.point);
-        bt20.setId(R.id.getResult);
-
-    }
 
     /**
      * 点击事件
