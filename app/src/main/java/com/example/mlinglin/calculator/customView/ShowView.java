@@ -17,7 +17,7 @@ public class ShowView extends android.support.v7.widget.AppCompatTextView {
 
     //new 实例化时调用
     public ShowView(Context context) {
-        this(context, null);
+        super(context);
     }
 
     //布局文件调用
